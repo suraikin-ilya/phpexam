@@ -1,4 +1,5 @@
 <?php
+require "includes/db_connection.php";
 if (isset($_GET['logout'])) {
     setcookie('user', $user['login'], time() - 3600, "/");
     header('Location: admin.php');
@@ -29,9 +30,27 @@ if($_COOKIE['user']== ''):
     </form>
 </main>
 <?php else: ?>
-
+    <div class="container">
     <a href="admin.php?logout" class=" btn btn-lg btn-primary w100">Выйти</a>
-
+    <h1 >Панель администратора</h1>
+    </div>
+    <?php
+    $result = mysqli_query($link,'SELECT session_link, theme, session_status FROM sessions');
+    echo '<h3> Актуальные сессии: </h3>';
+    echo '<div class="list"> <ol>';
+    while ($row = mysqli_fetch_array($result)){
+        echo'
+                    <li><div class=""><h6>' . $row['theme'] .'   '.  ': <a href="//'.$_SERVER['SERVER_NAME'].'/?link='.$row['session_link'].'">' . $_SERVER['SERVER_NAME'] . '/?link=' . $row['session_link'] .
+            '</a> <a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?status=edit&id=' . $row['session_link'] . '" class="editLink">[Редактировать]</a>'.
+            '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=delete&id=' . $row['session_link'] . '" class="editLink">[Удалить]</a>' .
+            ( ($row['session_status'] == 'active')
+                ?'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=deactivate&id=' . $row['session_link'] . '" class="editLink">[Закрыть]</a>'
+                :'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=activate&id=' . $row['session_link'] . '" class="editLink">[Открыть]</a>') .
+            '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?status=analyze&id=' . $row['session_link'] . '" class="editLink">[Ответы]</a>' .
+            '</h6></div></li>';
+    }
+    echo '</ol> </div>';
+    ?>
 <?php endif; ?>
 
 </body>
