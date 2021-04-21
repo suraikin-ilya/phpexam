@@ -4,17 +4,8 @@ if (isset($_GET['logout'])) {
     setcookie('user', $user['login'], time() - 3600, "/");
     header('Location: admin.php');
 }
+require "includes/header.php";
 ?>
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Экспертная сессия</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-</head>
 <body class="text-center">
 <?php
 if($_COOKIE['user']== ''):
@@ -26,7 +17,7 @@ if($_COOKIE['user']== ''):
             <input type="password" class="form-control" name="pass" id="floatingPassword" placeholder="Password">
             <label for="floatingPassword">Password</label>
         </div>
-        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Войти</button>
     </form>
 </main>
 <?php else: ?>
@@ -40,17 +31,20 @@ if($_COOKIE['user']== ''):
     echo '<div class="list"> <ol>';
     while ($row = mysqli_fetch_array($result)){
         echo'
-                    <li><div class=""><h6>' . $row['theme'] .'   '.  ': <a href="//'.$_SERVER['SERVER_NAME'].'/?link='.$row['session_link'].'">' . $_SERVER['SERVER_NAME'] . '/?link=' . $row['session_link'] .
-            '</a> <a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?status=edit&id=' . $row['session_link'] . '" class="editLink">[Редактировать]</a>'.
-            '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=delete&id=' . $row['session_link'] . '" class="editLink">[Удалить]</a>' .
+                    <li><div class="">
+                    <h6>' . $row['theme'] .'   '.  ': 
+                    <a href="//'.$_SERVER['SERVER_NAME'].'/?link='.$row['session_link'].'">' . $_SERVER['SERVER_NAME'] . '/?link=' . $row['session_link'] . '</a> 
+                    <a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?status=edit&id=' . $row['session_link'] . '" class="editLink">Редактировать</a>'.
+            '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=delete&id=' . $row['session_link'] . '" class="editLink">Удалить</a>' .
             ( ($row['session_status'] == 'active')
-                ?'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=deactivate&id=' . $row['session_link'] . '" class="editLink">[Закрыть]</a>'
-                :'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=activate&id=' . $row['session_link'] . '" class="editLink">[Открыть]</a>') .
-            '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?status=analyze&id=' . $row['session_link'] . '" class="editLink">[Ответы]</a>' .
+                ?'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=deactivate&id=' . $row['session_link'] . '" class="editLink">Закрыть</a>'
+                :'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=activate&id=' . $row['session_link'] . '" class="editLink">Открыть</a>') .
+            '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?status=analyze&id=' . $row['session_link'] . '" class="editLink">Ответы</a>' .
             '</h6></div></li>';
     }
     echo '</ol> </div>';
     ?>
+    <a href="add.php" class="btn btn-lg btn-block btn-outline-primary ">Добавить сессию</a>
 <?php endif; ?>
 
 </body>

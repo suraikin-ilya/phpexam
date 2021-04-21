@@ -1,5 +1,6 @@
 body{
     padding: 0 22%;
+    font-family: Roboto;
 }
 
 .form-signin{
@@ -16,4 +17,22 @@ body{
 
 .editLink{
     float: right;
+    padding: 3px;
+    margin-left: 3px;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+}
+
+.button_margin{
+    margin: 10px 0;
+}
+
+.mlr{
+    width: 30%;
+    margin: 0 auto;
+}
+
+.mlrb{
+    width: 60%;
+    margin: 0 auto;
 }
