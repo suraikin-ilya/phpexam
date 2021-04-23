@@ -50,20 +50,20 @@ echo '
 if($_POST['count_questions'] && !$_POST['theme0']){
 echo '<input type="submit" value="Выбрать типы вопросов" class="button_margin btn btn-secondary my-2">';
 }
-if($_POST['count_questions'] && $_POST['theme0']){
-for ($i = 0; $i < $_POST['count_questions']; $i++){
-echo '<label for="question'.$i.'">Вопрос №' . ($i+1) . ': </label>
-<input type="text" class="form-control mlrb" id="question'.$i.'"  name="question'.$i.'"required>';
-if($_POST['theme'.$i]=='radio'||$_POST['theme'.$i]=='checkbox'){
-echo '<label for="options'.$i.'">Варианты ответов: </label>
-<input type="text" class="form-control mlrb" id="options'.$i.'" name="options'.$i.'" required>';
-}
-echo '<label for="answer'.$i.'">Ответ: </label>
-<input type="text" class="form-control mlrb" id="answer'.$i.'" name="answer'.$i.'" required><br><br>';
-}
-echo '
+if($_POST['count_questions'] && $_POST['theme0']) {
+    for ($i = 0; $i < $_POST['count_questions']; $i++) {
+        echo '<label for="question' . $i . '">Вопрос №' . ($i + 1) . ': </label>
+<input type="text" class="form-control mlrb" id="question' . $i . '"  name="question' . $i . '"required>';
+        if ($_POST['theme' . $i] == 'radio' || $_POST['theme' . $i] == 'checkbox') {
+            echo '<label for="options' . $i . '">Варианты ответов: </label>
+<input type="text" class="form-control mlrb" id="options' . $i . '" name="options' . $i . '" required>';
+        }
+        echo '<label for="answer' . $i . '">Ответ: </label>
+<input type="text" class="form-control mlrb" id="answer' . $i . '" name="answer' . $i . '" required><br><br>';
+    }
+    echo '
 <label for="session_link">Ссылка на сессию</label> <input class="form-control mlrb" name="session_link" id="session_link" type="text">
-<input type="submit" value="Создать сессию" class="btn btn-primary btn-lg btn-block button_margin">';
+<input type="submit" value="Создать сессию" class="btn btn-primary btn-lg btn-block button_margin" >';
 }
 echo '</form>';
 if($_POST['question0']) {
@@ -84,6 +84,10 @@ if($_POST['question0']) {
     $questions_query = "INSERT INTO `sessions` (session_link, session_status, theme, questions)
             VALUES ('$session_link', 'active', '$theme', '$questions')";
     $result = mysqli_query($link, $questions_query) or die("Ошибка " . mysqli_error($link));
+    if($result){
+        echo '<a href="admin.php" class="btn btn-primary btn-lg btn-block button_margin">На главную</a>';
+        $success = 1;
+    }
     unset($_POST);
     header('location: admin.php');
 }
