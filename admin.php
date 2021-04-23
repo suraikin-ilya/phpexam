@@ -26,6 +26,22 @@ if($_COOKIE['user']== ''):
     <h1 >Панель администратора</h1>
     </div>
     <?php
+    if($_GET['action'] == 'delete' and !empty($_GET['id'])) {
+        $result = mysqli_query($link, 'DELETE FROM `sessions` WHERE session_link = "' . $_GET['id'] . '"');
+        if (!$result) die("Ошибка");
+    }
+    if($_GET['action'] == 'open' and !empty($_GET['id'])) {
+        $session_link = $_GET['id'];
+        $result = mysqli_query($link, "UPDATE `sessions` SET session_status = 'active' WHERE session_link='$session_link'");
+        if (!$result) die("Ошибка");
+    }
+    if($_GET['action'] == 'close' and !empty($_GET['id'])) {
+        $session_link = $_GET['id'];
+        $result = mysqli_query($link, "UPDATE `sessions` SET session_status = 'inactive' WHERE session_link='$session_link'");
+        if (!$result) die("Ошибка");
+    }
+    ?>
+    <?php
     $result = mysqli_query($link,'SELECT session_link, theme, session_status FROM sessions');
     echo '<h3> Актуальные сессии: </h3>';
     echo '<div class="list"> <ol>';
@@ -37,8 +53,8 @@ if($_COOKIE['user']== ''):
                     <a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?status=edit&id=' . $row['session_link'] . '" class="editLink">Редактировать</a>'.
             '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=delete&id=' . $row['session_link'] . '" class="editLink">Удалить</a>' .
             ( ($row['session_status'] == 'active')
-                ?'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=deactivate&id=' . $row['session_link'] . '" class="editLink">Закрыть</a>'
-                :'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=activate&id=' . $row['session_link'] . '" class="editLink">Открыть</a>') .
+                ?'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=close&id=' . $row['session_link'] . '" class="editLink">Закрыть</a>'
+                :'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=open&id=' . $row['session_link'] . '" class="editLink">Открыть</a>') .
             '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?status=analyze&id=' . $row['session_link'] . '" class="editLink">Ответы</a>' .
             '</h6></div></li>';
     }
