@@ -92,7 +92,7 @@ require "includes/header.php";
         }
         echo '
                 <label for="session_link">Ссылка:&nbsp;</label><input name="session_link" id="session_link" type="text" placeholder="Имя сессии" value="'.$_GET['id'].'">
-                <input type="submit" value="Обновить сессию" class="btn btn-primary btn-lg btn-block button_margin ">';
+               <input type="submit" value="Изменить" class="btn btn-primary btn-lg btn-block button_margin">';
     }
     echo '</form>'.'<body class="text-center">';
 
@@ -115,3 +115,4 @@ require "includes/header.php";
         $success = 1;
     }
     unset($_POST);
+

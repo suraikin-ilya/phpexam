@@ -49,13 +49,13 @@ if($_COOKIE['user']== ''):
         echo'
                     <li><div class="">
                     <h6>' . $row['theme'] .'   '.  ': 
-                    <a href="//'.$_SERVER['SERVER_NAME'].'/?link='.$row['session_link'].'">' . $_SERVER['SERVER_NAME'] . '/?link=' . $row['session_link'] . '</a> 
+                    <a href="//'.$_SERVER['SERVER_NAME'].'/index.php?link='.$row['session_link'].'">' . $_SERVER['SERVER_NAME'] . '/index.php/?link=' . $row['session_link'] . '</a> 
                     <a href="//' . $_SERVER['SERVER_NAME'] .'/edit.php?id=' . $row['session_link'] . '" class="editLink">Редактировать</a>'.
             '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=delete&id=' . $row['session_link'] . '" class="editLink">Удалить</a>' .
             ( ($row['session_status'] == 'active')
                 ?'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=close&id=' . $row['session_link'] . '" class="editLink">Закрыть</a>'
                 :'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=open&id=' . $row['session_link'] . '" class="editLink">Открыть</a>') .
-            '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?status=analyze&id=' . $row['session_link'] . '" class="editLink">Ответы</a>' .
+            '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?&id=' . $row['session_link'] . '" class="editLink">Ответы</a>' .
             '</h6></div></li>';
     }
     echo '</ol> </div>';

@@ -41,3 +41,16 @@ body{
     width: 15%;
     margin: 0 auto;
 }
+
+.question{
+    font-size: 35px;
+}
+
+.dib{
+    display: inline-block;
+}
+
+.pad{
+    padding: 0 15%;
+    font-size: 100px;
+}
