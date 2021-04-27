@@ -28,6 +28,7 @@ if($_COOKIE['user']== ''):
     <?php
     if($_GET['action'] == 'delete' and !empty($_GET['id'])) {
         $result = mysqli_query($link, 'DELETE FROM `sessions` WHERE session_link = "' . $_GET['id'] . '"');
+        $result_answers = mysqli_query($link, 'DELETE FROM `answers` WHERE session_link = "' . $_GET['id'] . '"');
         if (!$result) die("Ошибка");
     }
     if($_GET['action'] == 'open' and !empty($_GET['id'])) {
@@ -55,7 +56,7 @@ if($_COOKIE['user']== ''):
             ( ($row['session_status'] == 'active')
                 ?'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=close&id=' . $row['session_link'] . '" class="editLink">Закрыть</a>'
                 :'<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?action=open&id=' . $row['session_link'] . '" class="editLink">Открыть</a>') .
-            '<a href="//' . $_SERVER['SERVER_NAME'] .'/admin.php?&id=' . $row['session_link'] . '" class="editLink">Ответы</a>' .
+            '<a href="//' . $_SERVER['SERVER_NAME'] .'/answers.php?id=' . $row['session_link'] . '" class="editLink">Ответы</a>' .
             '</h6></div></li>';
     }
     echo '</ol> </div>';
